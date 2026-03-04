@@ -16,39 +16,29 @@ color:#f5f5dc;
 font-family:'Segoe UI',sans-serif;
 }
 
-/* NAVBAR */
+/* ANIMACIÓN DORADA */
+@keyframes goldFlash{
+0%{box-shadow:0 0 0px #d4af37;}
+50%{box-shadow:0 0 60px #ffd700;}
+100%{box-shadow:0 0 0px #d4af37;}
+}
+.gold-animate{
+animation:goldFlash 1.5s ease;
+}
+
+/* NAVBAR IGUAL CONTACTO */
 .navbar{
 background:#000;
 box-shadow:0 0 15px rgba(212,175,55,0.4);
-padding-top:8px;
-padding-bottom:8px;
+padding:8px 0;
 }
-
-.logo-wrapper{
-position:relative;
-display:inline-block;
-}
-
 .logo-img{
-height:130px;
-filter:brightness(1.2) contrast(1.3) sepia(1) hue-rotate(20deg) saturate(6)
-drop-shadow(0 0 10px rgba(212,175,55,0.8))
-drop-shadow(0 0 25px rgba(255,215,0,0.6));
-transition:0.5s;
+height:110px;
 }
+.nav-link{color:#f5f5dc !important;}
+.nav-link:hover{color:#d4af37 !important;}
 
-.logo-img:hover{
-transform:scale(1.08);
-}
-
-@media (max-width:768px){
-.logo-img{ height:80px; }
-}
-
-.nav-link{ color:#f5f5dc !important; }
-.nav-link:hover{ color:#d4af37 !important; }
-
-/* ADMIN BUTTONS */
+/* ADMIN */
 .admin-btn{
 position:fixed;
 right:0;
@@ -56,14 +46,12 @@ top:50%;
 transform:translateY(-50%);
 background:linear-gradient(45deg,#d4af37,#fff3b0);
 color:#000;
-font-weight:bold;
 padding:12px 25px;
 border-radius:10px 0 0 10px;
 cursor:pointer;
+font-weight:bold;
 z-index:9999;
-letter-spacing:1px;
 }
-
 .logout-btn{
 position:fixed;
 right:0;
@@ -71,108 +59,83 @@ top:60%;
 transform:translateY(-50%);
 background:#8b0000;
 color:#fff;
-font-weight:bold;
 padding:12px 25px;
 border-radius:10px 0 0 10px;
+display:none;
 cursor:pointer;
 z-index:9999;
-letter-spacing:1px;
-display:none;
 }
 
 /* HEADER */
 .header{
-margin-top:180px;
-margin-bottom:60px;
+margin-top:170px;
 text-align:center;
+margin-bottom:50px;
 }
-
-.header h1{
-color:#d4af37;
-letter-spacing:4px;
-}
+.header h1{color:#d4af37;letter-spacing:4px;}
 
 /* EVENTOS */
 .event-card{
 background:#0d0d0d;
-border:1px solid #1f1f1f;
 border-left:4px solid #d4af37;
-padding:30px;
-margin-bottom:30px;
+padding:25px;
+margin-bottom:25px;
 border-radius:12px;
 }
-
-.event-title{
-font-size:24px;
-color:#fff;
-margin-bottom:15px;
-}
-
 .event-info{
 background:#f1f1f1;
 color:#000;
+padding:15px;
 border-radius:8px;
-padding:20px;
 display:flex;
 flex-wrap:wrap;
-gap:40px;
+gap:30px;
 }
-
-.info-item{
-display:flex;
-align-items:center;
-gap:10px;
-min-width:200px;
-}
-
-.info-item i{
-color:#d4af37;
-font-size:22px;
-}
-
 .btn-ticket{
 background:linear-gradient(45deg,#d4af37,#fff3b0);
-color:#000;
-font-weight:bold;
 border:none;
-padding:8px 20px;
-border-radius:6px;
-}
-
-.admin-actions button{
-margin-left:5px;
+padding:8px 18px;
+font-weight:bold;
 }
 
 /* FOOTER */
 .footer{
 background:#111;
-padding:30px 0;
+padding:25px;
 text-align:center;
-margin-top:60px;
+margin-top:50px;
 }
 
 /* WHATSAPP */
 .whatsapp-float{
 position:fixed;
-width:60px;
-height:60px;
 bottom:20px;
 right:20px;
 background:#25D366;
-color:#FFF;
-border-radius:50px;
+width:60px;
+height:60px;
+border-radius:50%;
 text-align:center;
-font-size:30px;
-z-index:100;
+color:#fff;
+font-size:28px;
+line-height:60px;
 }
 
-.whatsapp-float i{ margin-top:16px; }
-
-/* LOGIN MODAL */
+/* MODALS */
 .modal-content{
+background:#111;
+color:#fff;
+border:1px solid #d4af37;
 border-radius:15px;
 }
-
+.modal-header,.modal-footer{
+border-color:#d4af37;
+}
+input{
+background:#000 !important;
+color:#fff !important;
+border:1px solid #d4af37 !important;
+}
 </style>
 </head>
 
@@ -181,8 +144,8 @@ border-radius:15px;
 <!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg fixed-top">
 <div class="container">
-<a class="navbar-brand logo-wrapper" href="index.html">
-<img src="Logoo.png" class="logo-img" alt="Felipe Guzman Logo">
+<a class="navbar-brand" href="index.html">
+<img src="Logoo.png" class="logo-img">
 </a>
 
 <button class="navbar-toggler bg-light" data-bs-toggle="collapse" data-bs-target="#menu">
@@ -200,7 +163,6 @@ border-radius:15px;
 </div>
 </nav>
 
-<!-- ADMIN -->
 <div class="admin-btn" onclick="openLogin()">ADMINISTRAR</div>
 <div id="logoutBtn" class="logout-btn" onclick="logout()">CERRAR SESIÓN</div>
 
@@ -212,45 +174,53 @@ border-radius:15px;
 <div id="eventsContainer"></div>
 </div>
 
-<!-- FOOTER -->
 <div class="footer">
-<p>© 2026 Felipe Guzman Official. Todos los derechos reservados.</p>
-<div style="color:#d4af37; font-size:20px;">★★★★★</div>
+© 2026 Felipe Guzman Official
 </div>
 
-<!-- WHATSAPP -->
 <a href="https://wa.me/573162979230" class="whatsapp-float" target="_blank">
 <i class="fab fa-whatsapp"></i>
 </a>
 
-<!-- MODAL LOGIN -->
-<div class="modal fade" id="loginModal" tabindex="-1">
+<!-- LOGIN MODAL -->
+<div class="modal fade" id="loginModal">
 <div class="modal-dialog modal-dialog-centered">
-<div class="modal-content bg-dark text-light border border-warning">
-
-<div class="modal-header border-warning">
+<div class="modal-content">
+<div class="modal-header">
 <h5 class="modal-title text-warning">INICIAR SESIÓN</h5>
-<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+<button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
 </div>
-
 <div class="modal-body">
-<div class="mb-3">
-<label class="form-label">Usuario</label>
-<input type="text" id="loginUser" class="form-control bg-black text-light border-warning">
-</div>
-
-<div class="mb-3">
-<label class="form-label">Contraseña</label>
-<input type="password" id="loginPass" class="form-control bg-black text-light border-warning">
-</div>
-
+<input type="text" id="loginUser" class="form-control mb-3" placeholder="Usuario">
+<input type="password" id="loginPass" class="form-control mb-3" placeholder="Contraseña">
 <div id="loginMessage" class="text-center fw-bold"></div>
 </div>
-
-<div class="modal-footer border-warning">
+<div class="modal-footer">
 <button class="btn btn-warning w-100" onclick="login()">Ingresar</button>
 </div>
+</div>
+</div>
+</div>
 
+<!-- CREATE / EDIT MODAL -->
+<div class="modal fade" id="eventModal">
+<div class="modal-dialog modal-dialog-centered">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title text-warning" id="modalTitle">CREAR EVENTO</h5>
+<button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+</div>
+<div class="modal-body">
+<input id="eTitle" class="form-control mb-2" placeholder="Título">
+<input id="ePlace" class="form-control mb-2" placeholder="Lugar">
+<input id="eDate" class="form-control mb-2" placeholder="Fecha">
+<input id="eTime" class="form-control mb-2" placeholder="Hora">
+<input id="eDoors" class="form-control mb-2" placeholder="Apertura">
+<input id="eAge" class="form-control mb-2" placeholder="Edad mínima">
+</div>
+<div class="modal-footer">
+<button class="btn btn-warning w-100" onclick="saveEvent()">Guardar</button>
+</div>
 </div>
 </div>
 </div>
@@ -258,116 +228,106 @@ border-radius:15px;
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-
 let isAdmin=false;
+let editIndex=null;
 
-/* EVENTOS INICIALES */
 if(!localStorage.getItem("events")){
 localStorage.setItem("events",JSON.stringify([
-{title:"Concierto Sinfónico",place:"Restaurante Concha Acústica",date:"9 de Abril",time:"8:30 p.m.",doors:"6:00 p.m.",age:"14 Años"},
-{title:"Noche Acústica",place:"Restaurante Concha Acústica",date:"28 de Junio",time:"7:00 p.m.",doors:"5:30 p.m.",age:"12 Años"},
-{title:"Show Internacional",place:"Restaurante Concha Acústica",date:"15 de Agosto",time:"9:00 p.m.",doors:"7:00 p.m.",age:"18 Años"}
+{title:"Concierto Sinfónico",place:"Concha Acústica",date:"9 Abril",time:"8:30pm",doors:"6:00pm",age:"14+"}
 ]));
 }
-
 let events=JSON.parse(localStorage.getItem("events"));
 
 function renderEvents(){
 let container=document.getElementById("eventsContainer");
 container.innerHTML="";
-
 events.forEach((e,index)=>{
 container.innerHTML+=`
 <div class="event-card">
-<div class="event-title">${e.title}</div>
-
+<h4>${e.title}</h4>
 <div class="event-info">
-<div class="info-item"><i class="bi bi-geo-alt"></i><div><strong>Lugar:</strong><br>${e.place}</div></div>
-<div class="info-item"><i class="bi bi-calendar"></i><div><strong>Fecha:</strong><br>${e.date}</div></div>
-<div class="info-item"><i class="bi bi-clock"></i><div><strong>Hora:</strong><br>${e.time}</div></div>
-<div class="info-item"><i class="bi bi-door-open"></i><div><strong>Apertura:</strong><br>${e.doors}</div></div>
-<div class="info-item"><i class="bi bi-person"></i><div><strong>Edad Mínima:</strong><br>${e.age}</div></div>
+<div><b>Lugar:</b> ${e.place}</div>
+<div><b>Fecha:</b> ${e.date}</div>
+<div><b>Hora:</b> ${e.time}</div>
+<div><b>Apertura:</b> ${e.doors}</div>
+<div><b>Edad:</b> ${e.age}</div>
 </div>
-
-<div class="mt-3 d-flex justify-content-between align-items-center">
+<div class="mt-3 d-flex justify-content-between">
 <button class="btn-ticket" onclick="buyTicket('${e.title}')">Comprar Ticket</button>
-
 ${isAdmin ? `
-<div class="admin-actions">
+<div>
 <button class="btn btn-success btn-sm" onclick="openCreate()">Crear</button>
-<button class="btn btn-warning btn-sm" onclick="editEvent(${index})">Editar</button>
+<button class="btn btn-warning btn-sm" onclick="openEdit(${index})">Editar</button>
 <button class="btn btn-danger btn-sm" onclick="deleteEvent(${index})">Eliminar</button>
-</div>` : ``}
-
+</div>`:''}
 </div>
-</div>
-`;
+</div>`;
 });
 }
-
 renderEvents();
 
 /* LOGIN */
-function openLogin(){
-let modal=new bootstrap.Modal(document.getElementById('loginModal'));
-modal.show();
-}
+function openLogin(){ new bootstrap.Modal(loginModal).show(); }
 
 function login(){
-let user=document.getElementById("loginUser").value;
-let pass=document.getElementById("loginPass").value;
-let message=document.getElementById("loginMessage");
-
-if(user==="adminfg" && pass==="FG2026VIP"){
+if(loginUser.value==="adminfg" && loginPass.value==="FG2026VIP"){
 isAdmin=true;
-document.getElementById("logoutBtn").style.display="block";
-message.classList.remove("text-danger");
-message.classList.add("text-success");
-message.innerHTML="✨ Bienvenida Administradora ✨";
-
-setTimeout(()=>{
-bootstrap.Modal.getInstance(document.getElementById('loginModal')).hide();
-renderEvents();
-},1500);
-
+document.body.classList.add("gold-animate");
+loginMessage.innerHTML="✨ Bienvenida Administradora ✨";
+loginMessage.className="text-success text-center fw-bold";
+logoutBtn.style.display="block";
+setTimeout(()=>{bootstrap.Modal.getInstance(loginModal).hide();renderEvents();},1200);
 }else{
-message.classList.remove("text-success");
-message.classList.add("text-danger");
-message.innerHTML="Credenciales incorrectas";
+loginMessage.innerHTML="Credenciales incorrectas";
+loginMessage.className="text-danger text-center fw-bold";
 }
 }
 
 function logout(){
 isAdmin=false;
-document.getElementById("logoutBtn").style.display="none";
-alert("Sesión cerrada correctamente");
+logoutBtn.style.display="none";
 renderEvents();
 }
 
-/* CRUD */
+/* CREATE */
 function openCreate(){
-let title=prompt("Título:");
-let place=prompt("Lugar:");
-let date=prompt("Fecha:");
-let time=prompt("Hora:");
-let doors=prompt("Apertura:");
-let age=prompt("Edad mínima:");
-
-events.push({title,place,date,time,doors,age});
-localStorage.setItem("events",JSON.stringify(events));
-renderEvents();
+editIndex=null;
+modalTitle.innerText="CREAR EVENTO";
+eTitle.value=ePlace.value=eDate.value=eTime.value=eDoors.value=eAge.value="";
+new bootstrap.Modal(eventModal).show();
 }
 
-function editEvent(index){
+/* EDIT */
+function openEdit(index){
+editIndex=index;
 let e=events[index];
-e.title=prompt("Título:",e.title);
-e.place=prompt("Lugar:",e.place);
-e.date=prompt("Fecha:",e.date);
-e.time=prompt("Hora:",e.time);
-e.doors=prompt("Apertura:",e.doors);
-e.age=prompt("Edad mínima:",e.age);
+modalTitle.innerText="EDITAR EVENTO";
+eTitle.value=e.title;
+ePlace.value=e.place;
+eDate.value=e.date;
+eTime.value=e.time;
+eDoors.value=e.doors;
+eAge.value=e.age;
+new bootstrap.Modal(eventModal).show();
+}
 
+/* SAVE */
+function saveEvent(){
+let newEvent={
+title:eTitle.value,
+place:ePlace.value,
+date:eDate.value,
+time:eTime.value,
+doors:eDoors.value,
+age:eAge.value
+};
+if(editIndex===null){
+events.push(newEvent);
+}else{
+events[editIndex]=newEvent;
+}
 localStorage.setItem("events",JSON.stringify(events));
+bootstrap.Modal.getInstance(eventModal).hide();
 renderEvents();
 }
 
@@ -379,17 +339,14 @@ renderEvents();
 }
 }
 
-function buyTicket(eventTitle){
-let phone="573162979230";
-let message=`Hola, quiero información sobre boletas disponibles y precios para el evento "${eventTitle}".`;
-let url=`https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-window.open(url,"_blank");
+function buyTicket(title){
+window.open(`https://wa.me/573162979230?text=Hola quiero info del evento ${title}`,"_blank");
 }
-
 </script>
 
 </body>
 </html>
+
 
 
 
