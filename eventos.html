@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -11,7 +10,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-
 body{
 background:#000;
 color:#f5f5dc;
@@ -33,12 +31,7 @@ display:inline-block;
 
 .logo-img{
 height:130px;
-filter:
-brightness(1.2)
-contrast(1.3)
-sepia(1)
-hue-rotate(20deg)
-saturate(6)
+filter:brightness(1.2) contrast(1.3) sepia(1) hue-rotate(20deg) saturate(6)
 drop-shadow(0 0 10px rgba(212,175,55,0.8))
 drop-shadow(0 0 25px rgba(255,215,0,0.6));
 transition:0.5s;
@@ -46,32 +39,6 @@ transition:0.5s;
 
 .logo-img:hover{
 transform:scale(1.08);
-filter:
-brightness(1.4)
-contrast(1.4)
-sepia(1)
-hue-rotate(25deg)
-saturate(8)
-drop-shadow(0 0 20px rgba(255,215,0,1))
-drop-shadow(0 0 40px rgba(212,175,55,0.9));
-}
-
-.logo-wrapper::after{
-content:"";
-position:absolute;
-top:0;
-left:-75%;
-width:50%;
-height:100%;
-background:linear-gradient(120deg,transparent 0%,rgba(255,255,255,0.9) 50%,transparent 100%);
-transform:skewX(-25deg);
-animation:shine 4s infinite;
-pointer-events:none;
-}
-
-@keyframes shine{
-0%{ left:-75%; }
-100%{ left:125%; }
 }
 
 @media (max-width:768px){
@@ -201,6 +168,11 @@ z-index:100;
 
 .whatsapp-float i{ margin-top:16px; }
 
+/* LOGIN MODAL */
+.modal-content{
+border-radius:15px;
+}
+
 </style>
 </head>
 
@@ -250,6 +222,38 @@ z-index:100;
 <a href="https://wa.me/573162979230" class="whatsapp-float" target="_blank">
 <i class="fab fa-whatsapp"></i>
 </a>
+
+<!-- MODAL LOGIN -->
+<div class="modal fade" id="loginModal" tabindex="-1">
+<div class="modal-dialog modal-dialog-centered">
+<div class="modal-content bg-dark text-light border border-warning">
+
+<div class="modal-header border-warning">
+<h5 class="modal-title text-warning">INICIAR SESIÓN</h5>
+<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+</div>
+
+<div class="modal-body">
+<div class="mb-3">
+<label class="form-label">Usuario</label>
+<input type="text" id="loginUser" class="form-control bg-black text-light border-warning">
+</div>
+
+<div class="mb-3">
+<label class="form-label">Contraseña</label>
+<input type="password" id="loginPass" class="form-control bg-black text-light border-warning">
+</div>
+
+<div id="loginMessage" class="text-center fw-bold"></div>
+</div>
+
+<div class="modal-footer border-warning">
+<button class="btn btn-warning w-100" onclick="login()">Ingresar</button>
+</div>
+
+</div>
+</div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -305,16 +309,31 @@ renderEvents();
 
 /* LOGIN */
 function openLogin(){
-let user=prompt("Usuario:");
-let pass=prompt("Contraseña:");
+let modal=new bootstrap.Modal(document.getElementById('loginModal'));
+modal.show();
+}
+
+function login(){
+let user=document.getElementById("loginUser").value;
+let pass=document.getElementById("loginPass").value;
+let message=document.getElementById("loginMessage");
 
 if(user==="adminfg" && pass==="FG2026VIP"){
 isAdmin=true;
 document.getElementById("logoutBtn").style.display="block";
-alert("Bienvenida Administradora");
+message.classList.remove("text-danger");
+message.classList.add("text-success");
+message.innerHTML="✨ Bienvenida Administradora ✨";
+
+setTimeout(()=>{
+bootstrap.Modal.getInstance(document.getElementById('loginModal')).hide();
 renderEvents();
+},1500);
+
 }else{
-alert("Credenciales incorrectas");
+message.classList.remove("text-success");
+message.classList.add("text-danger");
+message.innerHTML="Credenciales incorrectas";
 }
 }
 
@@ -371,6 +390,7 @@ window.open(url,"_blank");
 
 </body>
 </html>
+
 
 
 
